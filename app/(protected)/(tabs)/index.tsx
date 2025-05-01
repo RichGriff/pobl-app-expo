@@ -1,8 +1,11 @@
-import { View, Text, ScrollView, Image, Pressable, FlatList } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, Image, Pressable, FlatList, Modal } from 'react-native'
+import React, { useState } from 'react'
 import { AntDesign, Ionicons, MaterialIcons, Octicons } from '@expo/vector-icons'
 import { Card, CardContent, CardHeader } from '@/components/card'
 import { Button } from '@/components/button'
+import { Link, useRouter } from 'expo-router'
+import TenancySwitcherModal from '@/components/tenancy-switcher'
+import TenancyDrawer from '@/components/tenancy-drawer'
 
 const tickets = [
   {
@@ -35,6 +38,9 @@ const appointments = [
 ];
 
 const HomeScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
   return (
     <View className='flex-1 bg-[#f0ecfd]'>
       <ScrollView
@@ -45,9 +51,21 @@ const HomeScreen = () => {
         {/* HEADER */}
         <View className="bg-white border-b border-b-[#F2F2F2] flex-row justify-between items-center pt-12 pb-6 min-h-[80px] px-4">
           <View className="flex-row items-center justify-start gap-3">
-            <View className='p-2 bg-[#FF3F7A10] rounded-md'>
+            {/* <View className='p-2 bg-[#FF3F7A10] rounded-md'>
               <Octicons name="arrow-switch" size={20} color="#FF3F7A" />
-            </View>
+            </View> */}
+            <Pressable 
+              onPress={() => setDrawerVisible(true)} 
+              // android_ripple={null}
+              // style={({ pressed }) => ({
+              //   // Do not change style on press
+              //   backgroundColor: 'transparent',
+              // })}
+            >
+              <View className="p-2 bg-[#FF3F7A10] rounded-md">
+                <Octicons name="arrow-switch" size={20} color="#FF3F7A" />
+              </View>
+            </Pressable>
             <Text className="text-2xl font-medium ml-2">Apartment 4B, Riverside Towers</Text>
           </View>
           <Image
@@ -55,6 +73,16 @@ const HomeScreen = () => {
             className="w-10 h-10 rounded-full"
           />
         </View>
+
+        <TenancySwitcherModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+
+        <TenancyDrawer
+          isVisible={drawerVisible}
+          onClose={() => setDrawerVisible(false)}
+        />
 
         {/* SUMMARY */}
         <View className='my-4 px-4'>
