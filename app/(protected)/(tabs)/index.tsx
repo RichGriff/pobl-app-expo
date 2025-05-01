@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, Image, Pressable, FlatList } from 'react-native'
 import React from 'react'
-import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons, Octicons } from '@expo/vector-icons'
+import { AntDesign, Ionicons, MaterialIcons, Octicons } from '@expo/vector-icons'
 import { Card, CardContent, CardHeader } from '@/components/card'
 import { Button } from '@/components/button'
 
@@ -40,8 +40,9 @@ const HomeScreen = () => {
       <ScrollView
         className='flex-1'
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: 10 }}
       >
+        {/* HEADER */}
         <View className="bg-white border-b border-b-[#F2F2F2] flex-row justify-between items-center pt-12 pb-6 min-h-[80px] px-4">
           <View className="flex-row items-center justify-start gap-3">
             <View className='p-2 bg-[#FF3F7A10] rounded-md'>
@@ -55,6 +56,7 @@ const HomeScreen = () => {
           />
         </View>
 
+        {/* SUMMARY */}
         <View className='my-4 px-4'>
           <View className="flex-row justify-between">
             <Card className="flex-1 mr-2 py-6 p-2">
@@ -78,6 +80,7 @@ const HomeScreen = () => {
           </View>
         </View>
 
+        {/* PAYMENT CTA */}
         <View className='my-4 px-4'>
           <View className="bg-indigo-600 rounded-md p-5">
             <Text className="text-white font-bold text-3xl my-3 text-center">Want to Make Payment?</Text>
@@ -92,29 +95,6 @@ const HomeScreen = () => {
             </Pressable>
           </View>
         </View>
-
-        {/* <View className='my-4 px-4'>
-          <View className="flex-1">
-            <View className="flex-row justify-between items-center mb-2">
-              <Text className="font-semibold text-lg">Recent Tickets</Text>
-              <Text className="text-pink-600 text-base">View all</Text>
-            </View>
-            <View className="flex-row">
-              <Card className="flex-1 mr-2 p-2">
-                <CardContent className='flex flex-row justify-start items-center gap-4 p-4'>
-                  <AntDesign name="message1" size={28} color="#FF3F7A" />
-                  <View className="flex-row justify-between items-center mb-1">
-                    <View>
-                      <Text className="font-medium text-2xl">Direct Debit Query</Text>
-                      <Text className="text-lg text-gray-500">How can I go about setting up a new direct debit</Text>
-                    </View>
-                  </View>
-                  <Text className="absolute top-0 right-0 text-yellow-500 text-base bg-yellow-100 px-2 py-0.5 rounded">In Progress</Text>
-                </CardContent>
-              </Card>
-            </View>
-          </View>
-        </View> */}
 
         {/* TICKETS */}
         <View className="my-4">
@@ -147,6 +127,7 @@ const HomeScreen = () => {
           </View>
         </View>
 
+        {/* TENANCY INFO */}
         <View className='my-4 px-4'>
           <Card>
             <CardHeader className=''>
@@ -188,26 +169,6 @@ const HomeScreen = () => {
             </CardContent>
           </Card>
         </View>
-
-        {/* <View className='my-4 px-4'>
-          <Text className="font-semibold text-lg mb-2">Upcoming Appointments</Text>
-          <View className="flex-row">
-            <Card className="flex-1 mr-2 p-2">
-              <CardContent className='flex flex-row justify-start items-center gap-4 p-4'>
-                <Ionicons name="calendar-outline" size={32} color="#FF3F7A" />
-                <View className="flex-row justify-between items-center mb-1">
-                  <View>
-                    <Text className="font-medium text-2xl mb-1">May 5th, 2025</Text>
-                    <View className='flex flex-row justify-start items-center gap-1'>
-                      <MaterialCommunityIcons name="clock-outline" size={16} color="gray" />
-                      <Text className="text-lg text-gray-500">10:00 am - 12:00 pm</Text>
-                    </View>
-                  </View>
-                </View>
-              </CardContent>
-            </Card>
-          </View>
-        </View> */}
 
         {/* APPOINTMENTS */}
         <View className="my-4">
