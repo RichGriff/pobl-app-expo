@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import { Button } from '@/components/button'
-import useStore from '@/store/useStore'
 import { useRouter } from 'expo-router'
+import useAuth from '@/store/useAuth'
 
 const ProfileScreen = () => {
-  const { isLoggedIn, setIsLoggedIn } = useStore()
+  const { isLoggedIn, setIsLoggedIn } = useAuth()
 
   const router = useRouter()
   

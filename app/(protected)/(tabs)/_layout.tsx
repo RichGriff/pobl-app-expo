@@ -19,7 +19,7 @@ const TabLayout = () => {
         name="payments"
         options={{
           title: "Payments",
-          headerShown: false, 
+          headerShown: true, 
           popToTopOnBlur: true,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="payments" size={size} color={color} />

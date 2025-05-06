@@ -1,27 +1,13 @@
-// import { create } from 'zustand';
-
-// interface StoreState {
-//   isLoggedIn: boolean;
-//   setIsLoggedIn: (value: boolean) => void;
-// }
-
-// const useStore = create<StoreState>((set) => ({
-//   isLoggedIn: false,
-//   setIsLoggedIn: (value) => set({ isLoggedIn: value }),
-// }));
-
-// export default useStore;
-
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface StoreState {
+interface AuthState {
   isLoggedIn: boolean;
   setIsLoggedIn: (value: boolean) => void;
 }
 
-const useStore = create<StoreState>()(
+const useAuth = create<AuthState>()(
   persist(
     (set) => ({
       isLoggedIn: false,
@@ -34,4 +20,4 @@ const useStore = create<StoreState>()(
   )
 );
 
-export default useStore;
+export default useAuth;

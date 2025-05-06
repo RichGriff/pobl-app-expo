@@ -15,8 +15,8 @@ const TenancyDrawer = ({ isVisible, onClose } : TenancyDrawerProps) => {
   return (
     <Modal
       isVisible={isVisible}
-      hasBackdrop={false}
-      // onBackdropPress={onClose}
+      hasBackdrop={true}
+      onBackdropPress={onClose}
       onBackButtonPress={onClose}
       swipeDirection="down"
       onSwipeComplete={onClose}

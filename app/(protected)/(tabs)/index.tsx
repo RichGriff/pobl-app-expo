@@ -1,9 +1,8 @@
-import { View, Text, ScrollView, Image, Pressable, FlatList, Modal } from 'react-native'
+import { View, Text, ScrollView, Image, Pressable, FlatList, useColorScheme } from 'react-native'
 import React, { useState } from 'react'
-import { AntDesign, Ionicons, MaterialIcons, Octicons } from '@expo/vector-icons'
+import { AntDesign, FontAwesome6, Ionicons, MaterialIcons, Octicons } from '@expo/vector-icons'
 import { Card, CardContent, CardHeader } from '@/components/card'
 import { Button } from '@/components/button'
-import { Link, useRouter } from 'expo-router'
 import TenancySwitcherModal from '@/components/tenancy-switcher'
 import TenancyDrawer from '@/components/tenancy-drawer'
 
@@ -41,36 +40,36 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
+  const theme = useColorScheme()
+
   return (
-    <View className='flex-1 bg-[#f0ecfd]'>
+    <View className={`flex-1 bg-[#f0ecfd]`}>
       <ScrollView
         className='flex-1'
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 10 }}
       >
         {/* HEADER */}
-        <View className="bg-white border-b border-b-[#F2F2F2] flex-row justify-between items-center pt-12 pb-6 min-h-[80px] px-4">
-          <View className="flex-row items-center justify-start gap-3">
-            {/* <View className='p-2 bg-[#FF3F7A10] rounded-md'>
-              <Octicons name="arrow-switch" size={20} color="#FF3F7A" />
-            </View> */}
-            <Pressable 
-              onPress={() => setDrawerVisible(true)} 
-              // android_ripple={null}
-              // style={({ pressed }) => ({
-              //   // Do not change style on press
-              //   backgroundColor: 'transparent',
-              // })}
-            >
-              <View className="p-2 bg-[#FF3F7A10] rounded-md">
+        <View className="bg-white border-b border-b-[#F2F2F2] flex-row items-center pt-12 pb-6 min-h-[80px] px-4 gap-4">
+          {/* Left side (icon + text) */}
+          <View className="flex-1 flex-row items-center gap-3">
+            <Pressable onPress={() => setDrawerVisible(true)}>
+              <View className="p-3 bg-[#FF3F7A10] rounded-md">
                 <Octicons name="arrow-switch" size={20} color="#FF3F7A" />
               </View>
             </Pressable>
-            <Text className="text-2xl font-medium ml-2">Apartment 4B, Riverside Towers</Text>
+
+            {/* Text with wrapping */}
+            <Text className="text-2xl ml-2 font-medium flex-1 flex-wrap text-pretty">
+              Apartment 4B, Riverside Towers, CF32 7HH
+            </Text>
           </View>
+
+          {/* Avatar (fixed size, no shrink) */}
           <Image
             source={{ uri: 'https://images.unsplash.com/photo-1528892952291-009c663ce843?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG1hbGUlMjBwb3J0cmFpdHxlbnwwfHwwfHx8MA%3D%3D' }}
             className="w-10 h-10 rounded-full"
+            style={{ flexShrink: 0 }}
           />
         </View>
 
@@ -84,24 +83,39 @@ const HomeScreen = () => {
           onClose={() => setDrawerVisible(false)}
         />
 
+        {/* <View className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+          <Text className={`${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+            {theme}
+          </Text>
+        </View> */}
+
         {/* SUMMARY */}
         <View className='my-4 px-4'>
-          <View className="flex-row justify-between">
-            <Card className="flex-1 mr-2 py-6 p-2">
-              <CardContent className='flex flex-row justify-start items-center gap-2 p-4'>
-                <Ionicons name="wallet-outline" size={36} color="black" />
-                <View>
-                  <Text className="text-base text-gray-500">Contract Balance</Text>
-                  <Text className="text-2xl font-bold">$1,250.00</Text>
+          <View className="grid grid-cols-2 gap-4">
+            <Card className="p-2">
+              <CardContent className="p-4">
+                <View className='flex-row justify-start items-center gap-4'>
+                  {/* <Ionicons name="wallet-outline" size={48} color="#FF3F7A" /> */}
+                  <FontAwesome6 name="receipt" size={48} color="#FF3F7A" />
+                  <View className="flex-1 items-end">
+                    <Text className="font-medium text-5xl mt-4 mb-2">$1,250.00</Text>
+                    <Text className="text-xl text-gray-500">Contract Balance</Text>
+                  </View>
                 </View>
-              </CardContent>
-            </Card>
-            <Card className="flex-1 mr-2 py-6 p-2">
-              <CardContent className='flex flex-row justify-start items-center gap-2 p-4'>
-                <Ionicons name="calendar-number-outline" size={36} color="black" />
-                <View>
-                  <Text className="text-base text-gray-500">Next Billing Date</Text>
-                  <Text className="text-2xl font-bold">Jan 13, 2024</Text>
+                <View className='h-[1px] bg-gray-100 my-4' />
+                <View className='flex justify-start items-start gap-2'>
+                  <View className='w-full flex flex-row justify-between items-center'>
+                    <Text className="text-gray-500 text-lg">Next Billing Date</Text>
+                    <Text className="text-lg">Jan 13, 2024</Text>
+                  </View>
+                  <View className='w-full flex flex-row justify-between items-center'>
+                    <Text className="text-gray-500 text-lg">Last Billing Date</Text>
+                    <Text className="text-lg">Dec 13, 2024</Text>
+                  </View>
+                </View>
+                <View className='mt-10'>
+                  <Button title='Make a payment' theme='primary' />
+                  <Button title='Manage Direct Debit' theme='secondary' />
                 </View>
               </CardContent>
             </Card>
@@ -109,10 +123,9 @@ const HomeScreen = () => {
         </View>
 
         {/* PAYMENT CTA */}
-        <View className='my-4 px-4'>
+        {/* <View className='my-4 px-4'>
           <View className="bg-indigo-600 rounded-md p-5">
             <Text className="text-white font-bold text-3xl my-3 text-center">Want to Make Payment?</Text>
-            {/* <Button title="Pay now" theme='primary' /> */}
             <Pressable
               onPress={() => {}}
               className="w-[150px] bg-pink-500 flex-row items-center justify-center rounded-full mx-auto px-5 py-2 my-4"
@@ -122,7 +135,7 @@ const HomeScreen = () => {
               </Text>
             </Pressable>
           </View>
-        </View>
+        </View> */}
 
         {/* TICKETS */}
         <View className="my-4">
@@ -142,7 +155,7 @@ const HomeScreen = () => {
                   <CardContent className="flex flex-row justify-start items-center gap-4 p-4">
                     <View className="flex-1">
                       <AntDesign name="message1" size={28} color="#FF3F7A" />
-                      <Text className="font-medium text-2xl mt-2">{item.title}</Text>
+                      <Text className="font-medium text-2xl mt-4">{item.title}</Text>
                       <Text className="text-lg text-gray-500">{item.description}</Text>
                     </View>
                     <Text className="absolute top-0 right-0 text-yellow-500 text-base bg-yellow-100 px-2 py-0.5 rounded">
@@ -157,6 +170,9 @@ const HomeScreen = () => {
 
         {/* TENANCY INFO */}
         <View className='my-4 px-4'>
+          <View className="flex-row justify-between items-center mb-2">
+            <Text className="font-semibold text-lg">Tenancy Information</Text>
+          </View>
           <Card>
             <CardHeader className=''>
               <Image
