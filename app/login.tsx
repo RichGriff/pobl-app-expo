@@ -3,19 +3,24 @@ import { Button } from "@/components/button";
 import useAuth from "@/store/useAuth";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Image, Text, TextInput, View } from "react-native";
+import { Alert, Image, Text, TextInput, View } from "react-native";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { isLoggedIn, setIsLoggedIn } = useAuth()
+  const { isLoggedIn, login } = useAuth()
 
   const router = useRouter()
 
-  const handleLogin = () => {
-    setIsLoggedIn(true)
-  }
+  const handleLogin = async () => {
+    try {
+      await login('rich.griffiths@poblgroup.co.uk', 'Welcome123!');
+      // Navigate or show success
+    } catch (error) {
+      Alert.alert('Login Failed', 'Please check your credentials.');
+    }
+  };
 
   useEffect(() => {
     if (isLoggedIn) {

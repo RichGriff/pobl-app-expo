@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from '@/components/card'
 import { Button } from '@/components/button'
 import TenancySwitcherModal from '@/components/tenancy-switcher'
 import TenancyDrawer from '@/components/tenancy-drawer'
+import useAuth from '@/store/useAuth'
 
 const tickets = [
   {
@@ -41,6 +42,7 @@ const HomeScreen = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const theme = useColorScheme()
+  const { user } = useAuth()
 
   return (
     <View className={`flex-1 bg-[#f0ecfd]`}>
@@ -68,7 +70,7 @@ const HomeScreen = () => {
           {/* Avatar (fixed size, no shrink) */}
           <Image
             source={{ uri: 'https://images.unsplash.com/photo-1528892952291-009c663ce843?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG1hbGUlMjBwb3J0cmFpdHxlbnwwfHwwfHx8MA%3D%3D' }}
-            className="w-10 h-10 rounded-full"
+            className="w-12 h-12 rounded-full"
             style={{ flexShrink: 0 }}
           />
         </View>
@@ -88,6 +90,10 @@ const HomeScreen = () => {
             {theme}
           </Text>
         </View> */}
+
+        <View className='mt-6 px-4'>
+          <Text className='text-lg'>Welcome back! <Text className='font-medium text-pink-500'>{user?.fullname}</Text></Text>
+        </View>
 
         {/* SUMMARY */}
         <View className='my-4 px-4'>
